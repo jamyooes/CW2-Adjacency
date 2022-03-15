@@ -1,10 +1,11 @@
 """
 James Yoo
 """
-def make_adjacency_list(*args):
-    
+def make_adjacency_list(*args, **kwargs):
+    direction = ""
     adjacency_list = dict()
-
+    for keyword in kwargs:
+        print(kwargs[keyword])
     for edge_pair in args:
 
         node = edge_pair[0]
@@ -30,8 +31,9 @@ def count_nodes(*args):
 
     return set_of_nodes, len(set_of_nodes)
 
-def make_adjacency_matrix(*args):
-
+def make_adjacency_matrix(*args, **kwargs):
+    for keyword in kwargs:
+        print(kwargs[keyword])
 
     count = count_nodes(*args)[1]
 
@@ -61,5 +63,5 @@ def make_adjacency_matrix(*args):
 from pprint import pprint
 if __name__ ==  "__main__":
     #(1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4)
-    pprint(make_adjacency_list((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4)))
-    make_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4))
+    #pprint(make_adjacency_list((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4)))
+    make_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "Donut")
