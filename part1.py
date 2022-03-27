@@ -147,6 +147,9 @@ def make_numpy_adjacency_matrix(*args, **kwargs):
                 adjacency_matrix[row][col] = row
     return adjacency_matrix    
 
+"""
+Testing
+"""
 from pprint import pprint
 if __name__ ==  "__main__":
     #(1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4)
