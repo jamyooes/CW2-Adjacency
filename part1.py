@@ -1,6 +1,9 @@
 """
 James Yoo
 
+I have completed everything including the bonus
+
+Specs:
 Part 1: 
 Create two functions, one which will convert any number of tuple edge_pairs 
 into an adjacency list and one which will convert them to an adjacency matrix.
@@ -30,16 +33,16 @@ Function to create an adjacency list
 @return: returns an adjacency list
 """
 def make_adjacency_list(*args, **kwargs):
-    node_direction = ""
-    adjacency_list = dict()
+    node_direction = ""         # Variable to keep tarck of direction of the edge
+    adjacency_list = dict()     # holds the adjacency list
 
+    # gets the node_direction for the premade adjacency list
     for keyword in kwargs:
         node_direction = kwargs[keyword]
 
-    while node_direction not in ["->", "<-", "<>"]:
-        node_direction = input("You did not enter a valid direction, please enter a valid direction: ")
-
+    # this loop inserts all the edges into the adjacency_list based on the direction the nodes are pointed
     for edge_pair in args:
+        
         if node_direction == "->" or node_direction == "<>": 
             node = edge_pair[0]
 
@@ -59,7 +62,7 @@ def make_adjacency_list(*args, **kwargs):
     return adjacency_list
 
 """
-Helper function to count the number of unique nodes to create the matrix
+Helper function to count the number of unique nodes to create the adjacency matrix
 @param: *args - any number of tuples with two values in each tuple of type int
 @return: returns the number of unique nodes
 """
@@ -86,9 +89,6 @@ def make_adjacency_matrix(*args, **kwargs):
     for keyword in kwargs:
         node_direction = kwargs[keyword]
         
-    while node_direction not in ["->", "<-", "<>"]:
-        node_direction = input("You did not enter a valid direction, please enter a valid direction: ")
-
     count = count_nodes(*args)
 
     adjacency_matrix = []
@@ -107,12 +107,22 @@ def make_adjacency_matrix(*args, **kwargs):
         if node_direction == "<-" or node_direction == "<>":
             adjacency_matrix[edge_value[1]][edge_value[0]] = 1
 
-    for row in range (0, count+1):
-        for col in range (0, count+1):
-            if row == 0:
-                adjacency_matrix[row][col] = col 
-            elif col == 0:
-                adjacency_matrix[row][col] = row
+    #this is just to print the adjacency matrix, for me to read easier
+    print("Adjacency Matrix: ")
+    size = len(adjacency_matrix)
+    for row in range(0, size + 1):
+        output_matrix = ""
+        for col in range(0, size + 1):
+            if row == 0 and col != 0:
+                output_matrix += "   " + str(col-1)
+            elif col == 0 and row != 0:
+                output_matrix += "   " + str(row-1)
+            else:
+                output_matrix += "   " + \
+                    str(adjacency_matrix[row - 1][col - 1])
+        print(output_matrix)
+    print()
+
     return(adjacency_matrix)
 
 import numpy as np
@@ -125,9 +135,6 @@ Function to create an adjacency matrix given any number of int tuples and a dire
 def make_numpy_adjacency_matrix(*args, **kwargs):
     for keyword in kwargs:
             node_direction = kwargs[keyword]
-            
-    while node_direction not in ["->", "<-", "<>"]:
-        node_direction = input("You did not enter a valid direction, please enter a valid direction: ")
 
     count = count_nodes(*args)
 
@@ -139,12 +146,22 @@ def make_numpy_adjacency_matrix(*args, **kwargs):
         if node_direction == "<-" or node_direction == "<>":
             adjacency_matrix[edge_value[1]][edge_value[0]] = 1
 
-    for row in range (0, count+1):
-        for col in range (0, count+1):
-            if row == 0:
-                adjacency_matrix[row][col] = col 
-            elif col == 0:
-                adjacency_matrix[row][col] = row
+    #this is just to print the adjacency matrix, for me to read easier
+    print("Numpy Matrix: ")
+    size = len(adjacency_matrix)
+    for row in range(0, size + 1):
+        output_matrix = ""
+        for col in range(0, size + 1):
+            if row == 0 and col != 0:
+                output_matrix += "   " + str(col-1)
+            elif col == 0 and row != 0:
+                output_matrix += "   " + str(row-1)
+            else:
+                output_matrix += "   " + \
+                    str(adjacency_matrix[row - 1][col - 1])
+        print(output_matrix)
+    print()
+
     return adjacency_matrix    
 
 """
@@ -152,7 +169,6 @@ Testing
 """
 from pprint import pprint
 if __name__ ==  "__main__":
-    #(1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4)
-    #pprint(make_adjacency_list((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "Do"))
-    #pprint(make_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "Donut"))
-    pprint(make_numpy_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "<>"))
+    pprint(make_adjacency_list((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "<>"))
+    make_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "<>")
+    make_numpy_adjacency_matrix((1, 2), (1, 3), (2, 3), (2, 4), (3, 4), (3, 6), (4, 1), (4, 5), (5, 2), (5,4), direction = "<>")
